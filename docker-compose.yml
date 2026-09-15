@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  web2:
+    #build: ./springboot-app #이미 빌드되있는 경우 필요 없음.
+    image: jinwoojeong12/hub-node-img:2
+    container_name: springboot_app2
+    ports:
+      - "9090:8080" # 스프링 내부 포트(8080) 매핑 (만약 server.port=9090 설정 시 8880:9090 유지)
+    environment:
+      # db -> db2로 수정, = 뒤 공백 제거
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db2:3306/demo_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_DATA_REDIS_URL=redis://redis2:6379/0
+    depends_on:
+      db2:
+        condition: service_healthy
+      redis2:
+        condition: service_healthy
+    restart: always
+
+  db2:
+    image: mysql:8.0
+    container_name: mysql_db2
+    environment:
+      # = 뒤 공백 제거
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=demo_db
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p1234"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - mysql_data2:/var/lib/mysql
+    ports:
+      - "3336:3306" # 호스트: 3336, 컨테이너: 3306 으로 순서 변경
+    restart: always
+
+  redis2:
+    image: redis:7-alpine
+    container_name: redis2
+    ports:
+      - "6380:6379" # 기존 1번 프로젝트의 redis(6379)와 충돌 방지를 위해 호스트 포트를 6380으로 분리 권장
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: always
+
+volumes:
+  mysql_data2:
