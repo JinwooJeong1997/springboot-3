@@ -33,7 +33,7 @@ String.class);
 e.getMessage();
         }
     }
-    # test mysql2
+    //test mysql2
     @GetMapping("/mysql2")
     public String dbTest() {
         try {
