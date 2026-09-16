@@ -74,7 +74,7 @@ jobs:
             fi
             # 최신 이미지 pull 및 기동
             docker compose pull
-            docker compose up -d
+            docker compose up -d --build
 
             # 상태 확인
             docker compose ps
