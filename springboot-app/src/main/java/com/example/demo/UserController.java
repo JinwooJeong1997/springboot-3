@@ -38,9 +38,8 @@ e.getMessage();
     public String dbTest2() {
         try {
             String sql = "SELECT id from member";
-            //String result = jdbcTemplate.queryForObject(sql, 
-String.class);
-java.util.List<String> results = jdbcTemplate.queryForList(sql, String.class);
+            //String result = jdbcTemplate.queryForObject(sql, String.class);
+            java.util.List<String> results = jdbcTemplate.queryForList(sql, String.class);
             return "Database test successful. now() : " + results.toString();
         } catch (Exception e) {
             e.printStackTrace();
