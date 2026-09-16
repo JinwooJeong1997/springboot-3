@@ -17,7 +17,7 @@ public class UserController {
 
     @GetMapping("/")
     public String hello_default() {
-        return " Spring Boot START PAGE CHANGED! MK3!!";
+        return " Spring Boot START PAGE CHANGED! MK3!!!";
     }
 
      @GetMapping("/mysql")
