@@ -35,7 +35,7 @@ e.getMessage();
     }
     //test mysql2
     @GetMapping("/mysql2")
-    public String dbTest() {
+    public String dbTest2() {
         try {
             String sql = "SELECT id from member";
             String result = jdbcTemplate.queryForObject(sql, 
