@@ -3,8 +3,8 @@ version: '3.9'
 services:
   web2:
     #build: ./springboot-app #이미 빌드되있는 경우 필요 없음.
-    image: jinwoojeong12/hub-node-img:2
-    container_name: springboot_app2
+    image: jinwoojeong12/hub-node-img:latest
+    #container_name: springboot_app3
     ports:
       - "9090:8080" # 스프링 내부 포트(8080) 매핑 (만약 server.port=9090 설정 시 8880:9090 유지)
     environment:
@@ -22,7 +22,7 @@ services:
 
   db2:
     image: mysql:8.0
-    container_name: mysql_db2
+    #container_name: mysql_db3
     environment:
       # = 뒤 공백 제거
       - MYSQL_ROOT_PASSWORD=1234
@@ -40,7 +40,7 @@ services:
 
   redis2:
     image: redis:7-alpine
-    container_name: redis2
+    #container_name: redis3
     ports:
       - "6380:6379" # 기존 1번 프로젝트의 redis(6379)와 충돌 방지를 위해 호스트 포트를 6380으로 분리 권장
     healthcheck:
