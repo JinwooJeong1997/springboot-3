@@ -17,7 +17,7 @@ public class UserController {
 
     @GetMapping("/")
     public String hello_default() {
-        return "<body bgcolor='blue'>Spring Boot START PAGE CHANGED! MK4!!!!</body>";
+        return "<body bgcolor='red'>Spring Boot START PAGE CHANGED! MK4!!!!</body>";
     }
 
      @GetMapping("/mysql")
@@ -38,9 +38,10 @@ e.getMessage();
     public String dbTest2() {
         try {
             String sql = "SELECT id from member";
-            String result = jdbcTemplate.queryForObject(sql, 
+            //String result = jdbcTemplate.queryForObject(sql, 
 String.class);
-            return "Database test successful. now() : " + result;
+java.util.List<String> results = jdbcTemplate.queryForList(sql, String.class);
+            return "Database test successful. now() : " + results.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return "Database connection failed! Error: " + 
